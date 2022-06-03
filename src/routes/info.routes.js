@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { processInfo } from "../controllers/info.controllers.js";
+const { Router } = require("express");
+const { processInfo } = require("../controllers/info.controllers.js");
 
 const router = Router();
 
@@ -8,4 +8,4 @@ router.get("/", (_req, res) => {
   res.redirect("/info");
 });
 
-export default router;
+module.exports = router;

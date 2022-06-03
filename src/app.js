@@ -1,10 +1,10 @@
-import express from "express";
-import dotenv from "dotenv";
-import infoRoute from "./routes/info.routes.js";
-import apiRoute from "./routes/api.routes.js";
+const express = require("express");
+const dotenv = require("dotenv");
+const infoRoute = require("./routes/info.routes.js");
+const apiRoute = require("./routes/api.routes");
 
-export class App {
-  constructor(port = 8080) {
+class App {
+  constructor(port) {
     this.app = express();
     this.port = port;
     this.dotenv = dotenv.config();
@@ -13,7 +13,7 @@ export class App {
     this.routes();
   }
   settings() {
-    this.app.set("port", process.env.PORT || this.port);
+    this.app.set("port", this.port);
   }
   middlewares() {
     this.app.use(express.json());
@@ -25,7 +25,13 @@ export class App {
   }
   listen() {
     this.app.listen(this.app.get("port"), () => {
-      console.log("🚀 listening on port:", Number(this.app.get("port")));
+      console.log(
+        `🚀 listening on port: ${Number(this.app.get("port"))}\n PID: ${
+          process.pid
+        }`
+      );
     });
   }
 }
+
+module.exports = { App };
