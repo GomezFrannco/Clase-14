@@ -1,11 +1,13 @@
-import { App } from "./src/app.js";
-import parseArgs from "minimist";
-
-function main(port) {
-  const app = new App(port);
-  return app.listen();
-}
+const { Cluster } = require("./src/utils/cluster.utils.js");
+const parseArgs = require("minimist");
+const { main } = require("./src/utils/server.utils.js");
 
 const args = parseArgs(process.argv);
 
-main(args.PORT);
+const PORT = args.PORT ? args.PORT : process.argv[2];
+
+if (args.MODE === "CLUSTER") {
+  Cluster.init();
+} else {
+  main(PORT);
+}
