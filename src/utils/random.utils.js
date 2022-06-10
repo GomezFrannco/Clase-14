@@ -20,8 +20,8 @@ function calculation(quantity) {
   return values;
 }
 
-process.send('ready');
-process.on('message', (q) => {
-  const res = calculation(Number(q))
-  process.send(res)
-})
+process.send("ready");
+process.on("message", (q) => {
+  const res = calculation(Number(q));
+  process.send(res);
+});
